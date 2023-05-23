@@ -1,0 +1,4 @@
+name: Lazy Button
+description: Creates a lazy loaded dynamic button.
+type: module
+core_version_requirement: "^10"

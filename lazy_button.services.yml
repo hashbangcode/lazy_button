@@ -1,0 +1,4 @@
+services:
+  lazy_button.button_service:
+    class: Drupal\lazy_button\LazyButtonService
+    arguments: [ '@string_translation' ]

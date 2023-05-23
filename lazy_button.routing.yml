@@ -1,0 +1,6 @@
+lazy_button_callback:
+  path: "/lazy_button/ajax"
+  defaults:
+    _controller: '\Drupal\lazy_button\Controller\LazyButtonController::lazyButtonCallback'
+  requirements:
+    _permission: "access content"
