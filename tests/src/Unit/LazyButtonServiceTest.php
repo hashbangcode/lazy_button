@@ -24,16 +24,18 @@ class LazyButtonServiceTest extends UnitTestCase {
   public function setUp():void {
     parent::setUp();
 
+    // Create a mocked user entity that will be used in the tests.
     $this->user = $this->getMockBuilder(User::class)
       ->disableOriginalConstructor()
       ->getMock();
-
     $this->user->expects($this->any())
       ->method('getDisplayName')
       ->willReturn('user');
 
+    // Create a mocked string translation service.
     $translate = $this->getStringTranslationStub();
 
+    // Create the mocked LazyButtonService object.
     $this->lazyButtonService = $this->getMockBuilder(LazyButtonService::class)
       ->setConstructorArgs([$translate])
       ->enableProxyingToOriginalMethods()
@@ -53,7 +55,7 @@ class LazyButtonServiceTest extends UnitTestCase {
   /**
    * Test the button clicked state.
    */
-  public function testOffState() {
+  public function testClickedState() {
     $buttonArray = $this->lazyButtonService->generateButton($this->user, 1);
     $this->assertEquals('<p>Hi user!</p>', $buttonArray['user_greeting']['#markup']);
     $this->assertEquals('Button was clicked', $buttonArray['lazy_button']['#title']);

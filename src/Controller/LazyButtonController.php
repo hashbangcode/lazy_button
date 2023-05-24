@@ -81,27 +81,32 @@ class LazyButtonController extends ControllerBase {
     // Do not cache the response.
     $response->setMaxAge(-1);
 
-    $user = $this->entityTypeManager()->getStorage('user')->load($this->currentUser()->id());
+    // Load the current user entity.
+    $user = $this->entityTypeManager()
+      ->getStorage('user')
+      ->load($this->currentUser()->id());
 
     if (!($user instanceof UserInterface)) {
       return $response;
     }
 
+    // Get the current button state.
     $buttonState = $this->state->get('lazy_button.state');
 
+    // Change the button state depending on the value.
     if ($buttonState === 1) {
       $buttonState = 0;
     }
     else {
       $buttonState = 1;
     }
-
     $this->state->set('lazy_button.state', $buttonState);
 
+    // Generate the button based on the user and the new state.
     $button = $this->lazyButtonService->generateButton($user, $buttonState);
 
+    // Add the button to the ajax response as an insert command.
     $response->addCommand(new InsertCommand('.lazy-button-wrapper', $button));
-
     return $response;
   }
 

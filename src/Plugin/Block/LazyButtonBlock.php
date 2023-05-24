@@ -23,10 +23,12 @@ class LazyButtonBlock extends BlockBase implements TrustedCallbackInterface {
    * {@inheritDoc}
    */
   public function build() {
+    // Get the current user from the cache context.
     $currentUser = $this->getContextValue('current_user');
 
     $build = [];
 
+    // Add the lazy builder for the button.
     $build['lazy_button'] = [
       '#lazy_builder' => [LazyButtonBlock::class . '::lazyButton', [
         $currentUser->id(),
@@ -48,11 +50,12 @@ class LazyButtonBlock extends BlockBase implements TrustedCallbackInterface {
    *   The lazy button render array.
    */
   public static function lazyButton($userId) {
+    // Load the user.
     $entityTypeManager = \Drupal::service('entity_type.manager');
-    $state = \Drupal::service('state');
-
     $user = $entityTypeManager->getStorage('user')->load($userId);
 
+    // Get the current state of the button.
+    $state = \Drupal::service('state');
     $buttonState = $state->get('lazy_button.state');
 
     // Generate button.
