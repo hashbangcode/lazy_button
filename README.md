@@ -3,6 +3,8 @@
 This module is a demonstration module for Drupal 10 that shows how to create a
 dynamic user interaction element that uses lazy builders and ajax.
 
+Read more about this module [on the article on #! code](https://www.hashbangcode.com/article/drupal-10-using-lazy-builder-create-dynamic-button).
+
 Some important parts:
 - LazyButtonBlock - The block that adds the lazy builder element to
 the page.
